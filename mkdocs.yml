@@ -1,0 +1,42 @@
+site_name: Internship Documentation
+site_description: Technical Documentation of My Internship at iGradAI Labs Private Limited
+site_author: Inisha S
+
+theme:
+  name: material
+  language: en
+
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.sections
+    - navigation.expand
+    - navigation.footer
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+  palette:
+    - scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    - scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Profile Summary: about.md
+  - Internship Overview: internship-overview.md
+  - Technical Skills: technical-skills.md
+  - Learning Journey: learning-journey.md
+  - Projects & Deliverables: projects-deliverables.md
+  - Certifications: certifications.md
+  - Final Remarks: conclusion.md
