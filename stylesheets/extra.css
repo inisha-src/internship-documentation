@@ -71,61 +71,65 @@ body::before {
   background-image:
     linear-gradient(115deg,
       transparent 0%,
-      rgba(16, 185, 129, 0.16) 10%,
-      rgba(20, 184, 166, 0.26) 26%,
-      rgba(34, 211, 238, 0.18) 48%,
-      rgba(99, 102, 241, 0.16) 70%,
-      rgba(168, 85, 247, 0.18) 86%,
+      rgba(16, 185, 129, 0.12) 10%,
+      rgba(20, 184, 166, 0.22) 26%,
+      rgba(34, 211, 238, 0.16) 48%,
+      rgba(99, 102, 241, 0.14) 70%,
+      rgba(168, 85, 247, 0.16) 86%,
       transparent 100%),
 
     linear-gradient(60deg,
       transparent 0%,
-      rgba(34, 211, 238, 0.14) 12%,
-      rgba(168, 85, 247, 0.20) 40%,
-      rgba(16, 185, 129, 0.12) 64%,
+      rgba(34, 211, 238, 0.12) 12%,
+      rgba(168, 85, 247, 0.18) 40%,
+      rgba(16, 185, 129, 0.10) 64%,
       transparent 100%),
 
-    radial-gradient(900px 480px at 25% 18%, rgba(16, 185, 129, 0.26), transparent 62%),
-    radial-gradient(850px 520px at 75% 30%, rgba(168, 85, 247, 0.22), transparent 64%),
-    radial-gradient(720px 420px at 45% 70%, rgba(34, 211, 238, 0.20), transparent 58%);
+    radial-gradient(900px 480px at 25% 18%, rgba(16, 185, 129, 0.22), transparent 62%),
+    radial-gradient(850px 520px at 75% 30%, rgba(168, 85, 247, 0.18), transparent 64%),
+    radial-gradient(720px 420px at 45% 70%, rgba(34, 211, 238, 0.16), transparent 58%);
 
-  /* Blur stays in background layer only */
-  filter: blur(26px) saturate(1.18);
-  opacity: 0.92;
+  /* Soft, premium blur kept on background only */
+  filter: blur(30px) saturate(1.16);
+  opacity: 0.65;
 
-  background-size: 150% 150%, 150% 150%, 120% 120%, 120% 120%, 120% 120%;
+  background-size: 160% 160%, 160% 160%, 125% 125%, 125% 125%, 125% 125%;
 
-  /* Longer durations for smoother motion */
+  /* Very slow & smooth motion */
   animation:
-    auroraWave 46s ease-in-out infinite,
-    auroraDrift 52s linear infinite;
+    auroraWave 64s ease-in-out infinite,
+    auroraDrift 76s linear infinite;
 }
 
-/* Particles & soft rays */
+/* Very subtle floating particles / blobs */
 body::after {
   background-image:
+    /* gentle rays */
     repeating-linear-gradient(115deg,
       rgba(16, 185, 129, 0.00) 0px,
-      rgba(16, 185, 129, 0.07) 12px,
-      rgba(34, 211, 238, 0.05) 22px,
-      rgba(168, 85, 247, 0.06) 32px,
+      rgba(16, 185, 129, 0.045) 12px,
+      rgba(34, 211, 238, 0.035) 22px,
+      rgba(168, 85, 247, 0.040) 32px,
       rgba(16, 185, 129, 0.00) 44px),
 
-    radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.45) 0 1px, transparent 2px),
-    radial-gradient(circle at 38% 42%, rgba(168, 85, 247, 0.38) 0 1px, transparent 2px),
-    radial-gradient(circle at 70% 26%, rgba(16, 185, 129, 0.40) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 78%, rgba(34, 211, 238, 0.34) 0 1px, transparent 2px),
+    /* tiny particle specks */
+    radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 38% 42%, rgba(168, 85, 247, 0.16) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 26%, rgba(16, 185, 129, 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 78%, rgba(34, 211, 238, 0.15) 0 1px, transparent 2px),
 
-    radial-gradient(1000px 600px at 60% 30%, rgba(99, 102, 241, 0.14), transparent 60%),
-    radial-gradient(900px 560px at 18% 70%, rgba(20, 184, 166, 0.12), transparent 62%);
+    /* soft blobs */
+    radial-gradient(1200px 700px at 60% 25%, rgba(99, 102, 241, 0.10), transparent 62%),
+    radial-gradient(900px 560px at 18% 70%, rgba(20, 184, 166, 0.085), transparent 62%);
 
-  filter: blur(20px) saturate(1.2);
-  opacity: 0.78;
+  filter: blur(22px) saturate(1.2);
+  opacity: 0.35;
 
   animation:
-    raysFlow 54s ease-in-out infinite,
-    particlesFloat 42s ease-in-out infinite;
+    raysFlow 82s ease-in-out infinite,
+    particlesFloat 70s ease-in-out infinite;
 }
+
 
 @keyframes auroraWave {
   0%   { transform: translate3d(-2.5%, -2.0%, 0) scale(1.02) rotate(-2deg); opacity: 0.86; }
