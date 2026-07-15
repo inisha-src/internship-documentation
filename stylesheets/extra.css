@@ -1,6 +1,8 @@
 /* =====================================================
-   Premium Modern UI (Material for MkDocs)
-   CSS-only; only edits this file
+   GitHub / Apple / Microsoft Learn-inspired UI
+   Material for MkDocs — CSS-only
+   IMPORTANT: Only this file contains UI changes.
+   Keep Aurora Borealis background + smooth, lightweight motion.
 ======================================================*/
 
 :root {
@@ -13,15 +15,22 @@
   --indigo: #6366f1;
   --purple: #a855f7;
 
-  --header: rgba(3, 7, 18, 0.72);
+  --text: rgba(15, 23, 42, 0.96);
+  --muted: rgba(15, 23, 42, 0.70);
+
+  /* Subtle glass header (only header uses blur) */
+  --header: rgba(3, 7, 18, 0.58);
   --headerText: rgba(255, 255, 255, 0.94);
 
   --shadowSoft: 0 14px 40px rgba(0, 0, 0, 0.18);
+  --shadowCard: 0 10px 28px rgba(0, 0, 0, 0.10);
   --cardRadius: 18px;
 }
 
 /* ---------------------------
-   NORTHERN LIGHTS BACKGROUND
+   Aurora Borealis (fixed while scrolling)
+   - GPU-friendly: animate transforms/opacity only
+   - Soft glow particles (via layered gradients)
    --------------------------- */
 
 html,
@@ -36,20 +45,20 @@ body {
   overflow-x: hidden;
   isolation: isolate;
 
-  /* Keep body background gradients lightweight; aurora layers are handled by pseudo-elements */
+  /* Base gradients (static) */
   background-image:
     radial-gradient(1200px 650px at 20% 10%, rgba(16, 185, 129, 0.18), transparent 60%),
-    radial-gradient(1000px 620px at 85% 25%, rgba(168, 85, 247, 0.16), transparent 62%),
-    radial-gradient(900px 520px at 40% 85%, rgba(34, 211, 238, 0.14), transparent 58%),
+    radial-gradient(1000px 620px at 85% 25%, rgba(168, 85, 247, 0.14), transparent 62%),
+    radial-gradient(900px 520px at 40% 85%, rgba(34, 211, 238, 0.12), transparent 58%),
     linear-gradient(180deg, var(--bg1), var(--bg0));
 }
 
-/* Moving aurora background layers (blur ONLY in background) */
+/* Moving layers (no blur on text; blur only on background layers) */
 body::before,
 body::after {
   content: "";
   position: fixed;
-  inset: -20% -20%;
+  inset: -25% -25%;
   z-index: -1;
   pointer-events: none;
   background-repeat: no-repeat;
@@ -57,13 +66,12 @@ body::after {
   will-change: transform, opacity;
 }
 
-/* Aurora core: flowing waves + moving light bands */
+/* Flowing waves + soft light bands */
 body::before {
   background-image:
-    /* light bands */
     linear-gradient(115deg,
       transparent 0%,
-      rgba(16, 185, 129, 0.18) 10%,
+      rgba(16, 185, 129, 0.16) 10%,
       rgba(20, 184, 166, 0.26) 26%,
       rgba(34, 211, 238, 0.18) 48%,
       rgba(99, 102, 241, 0.16) 70%,
@@ -72,77 +80,76 @@ body::before {
 
     linear-gradient(60deg,
       transparent 0%,
-      rgba(34, 211, 238, 0.16) 12%,
-      rgba(168, 85, 247, 0.22) 40%,
-      rgba(16, 185, 129, 0.14) 64%,
+      rgba(34, 211, 238, 0.14) 12%,
+      rgba(168, 85, 247, 0.20) 40%,
+      rgba(16, 185, 129, 0.12) 64%,
       transparent 100%),
 
-    /* veils */
-    radial-gradient(900px 480px at 25% 20%, rgba(16, 185, 129, 0.28), transparent 62%),
-    radial-gradient(850px 520px at 75% 35%, rgba(168, 85, 247, 0.26), transparent 64%),
-    radial-gradient(700px 440px at 45% 70%, rgba(34, 211, 238, 0.22), transparent 58%);
+    radial-gradient(900px 480px at 25% 18%, rgba(16, 185, 129, 0.26), transparent 62%),
+    radial-gradient(850px 520px at 75% 30%, rgba(168, 85, 247, 0.22), transparent 64%),
+    radial-gradient(720px 420px at 45% 70%, rgba(34, 211, 238, 0.20), transparent 58%);
 
+  /* Blur stays in background layer only */
   filter: blur(26px) saturate(1.18);
-  opacity: 0.95;
+  opacity: 0.92;
 
-  background-size: 140% 140%, 140% 140%, 110% 110%, 110% 110%, 110% 110%;
+  background-size: 150% 150%, 150% 150%, 120% 120%, 120% 120%, 120% 120%;
+
+  /* Longer durations for smoother motion */
   animation:
-    auroraWave 38s ease-in-out infinite,
-    auroraDrift 34s linear infinite;
+    auroraWave 46s ease-in-out infinite,
+    auroraDrift 52s linear infinite;
 }
 
-/* Particles & soft rays (subtle, elegant) */
+/* Particles & soft rays */
 body::after {
   background-image:
-    /* gentle rays */
     repeating-linear-gradient(115deg,
       rgba(16, 185, 129, 0.00) 0px,
-      rgba(16, 185, 129, 0.08) 12px,
-      rgba(34, 211, 238, 0.06) 22px,
-      rgba(168, 85, 247, 0.08) 32px,
+      rgba(16, 185, 129, 0.07) 12px,
+      rgba(34, 211, 238, 0.05) 22px,
+      rgba(168, 85, 247, 0.06) 32px,
       rgba(16, 185, 129, 0.00) 44px),
 
-    /* subtle particles via tiny dot gradients */
-    radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.48) 0 1px, transparent 2px),
-    radial-gradient(circle at 70% 35%, rgba(168, 85, 247, 0.42) 0 1px, transparent 2px),
-    radial-gradient(circle at 45% 75%, rgba(16, 185, 129, 0.40) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 78%, rgba(34, 211, 238, 0.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.45) 0 1px, transparent 2px),
+    radial-gradient(circle at 38% 42%, rgba(168, 85, 247, 0.38) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 26%, rgba(16, 185, 129, 0.40) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 78%, rgba(34, 211, 238, 0.34) 0 1px, transparent 2px),
 
-    /* extra soft veils */
-    radial-gradient(1000px 600px at 60% 30%, rgba(99, 102, 241, 0.18), transparent 60%),
-    radial-gradient(900px 560px at 18% 70%, rgba(20, 184, 166, 0.16), transparent 62%);
+    radial-gradient(1000px 600px at 60% 30%, rgba(99, 102, 241, 0.14), transparent 60%),
+    radial-gradient(900px 560px at 18% 70%, rgba(20, 184, 166, 0.12), transparent 62%);
 
   filter: blur(20px) saturate(1.2);
-  opacity: 0.80;
+  opacity: 0.78;
 
   animation:
-    raysFlow 42s ease-in-out infinite,
-    particlesFloat 30s ease-in-out infinite;
+    raysFlow 54s ease-in-out infinite,
+    particlesFloat 42s ease-in-out infinite;
 }
 
 @keyframes auroraWave {
-  0%   { transform: translate3d(-2%, -2%, 0) scale(1.02) rotate(-2deg); opacity: 0.92; }
-  25%  { transform: translate3d(2%, -4%, 0) scale(1.04) rotate(1deg); opacity: 0.98; }
-  50%  { transform: translate3d(4%, 2%, 0) scale(1.03) rotate(3deg); opacity: 0.96; }
-  75%  { transform: translate3d(-1%, 4%, 0) scale(1.05) rotate(-1deg); opacity: 0.99; }
-  100% { transform: translate3d(-2%, -2%, 0) scale(1.02) rotate(-2deg); opacity: 0.92; }
+  0%   { transform: translate3d(-2.5%, -2.0%, 0) scale(1.02) rotate(-2deg); opacity: 0.86; }
+  25%  { transform: translate3d(2.0%, -4.5%, 0) scale(1.03) rotate(1deg); opacity: 0.95; }
+  50%  { transform: translate3d(4.2%, 2.2%, 0) scale(1.025) rotate(3deg); opacity: 0.90; }
+  75%  { transform: translate3d(-1.2%, 4.4%, 0) scale(1.04) rotate(-1deg); opacity: 0.98; }
+  100% { transform: translate3d(-2.5%, -2.0%, 0) scale(1.02) rotate(-2deg); opacity: 0.86; }
 }
 
 @keyframes auroraDrift {
-  0%   { background-position: 0% 45%, 50% 40%, 30% 20%, 75% 30%, 45% 70%; }
-  50%  { background-position: 55% 25%, 10% 50%, 10% 35%, 20% 70%, 60% 30%; }
-  100% { background-position: 0% 45%, 50% 40%, 30% 20%, 75% 30%, 45% 70%; }
+  0%   { background-position: 0% 46%, 50% 42%, 30% 22%, 75% 32%, 45% 70%; }
+  50%  { background-position: 55% 26%, 10% 52%, 10% 36%, 20% 72%, 60% 30%; }
+  100% { background-position: 0% 46%, 50% 42%, 30% 22%, 75% 32%, 45% 70%; }
 }
 
 @keyframes raysFlow {
-  0%   { transform: translate3d(0, -2%, 0) scale(1.02); opacity: 0.72; }
-  50%  { transform: translate3d(2%, 2%, 0) scale(1.05); opacity: 0.90; }
-  100% { transform: translate3d(0, -2%, 0) scale(1.02); opacity: 0.72; }
+  0%   { transform: translate3d(0, -2%, 0) scale(1.03); opacity: 0.60; }
+  50%  { transform: translate3d(2.2%, 2.2%, 0) scale(1.05); opacity: 0.88; }
+  100% { transform: translate3d(0, -2%, 0) scale(1.03); opacity: 0.60; }
 }
 
 @keyframes particlesFloat {
   0%   { transform: translate3d(0, 0, 0); }
-  50%  { transform: translate3d(1.5%, -1.2%, 0); }
+  50%  { transform: translate3d(1.9%, -1.5%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 
@@ -154,45 +161,50 @@ body::after {
 }
 
 /* ---------------------------
-   CONTENT AREA (SHARP FOREGROUND)
+   Sharp content (no blur on text/cards)
    --------------------------- */
 
 .md-content {
   background: rgba(255, 255, 255, 0.98);
   border-radius: var(--cardRadius);
   padding: 30px;
-  box-shadow: var(--shadowSoft);
+  box-shadow: var(--shadowCard);
 
-  /* Ensure no blur/filters on cards */
   backdrop-filter: none !important;
   filter: none !important;
 }
 
-/* Explicitly prevent blur on headings/text */
+/* Ensure headings/text remain crisp */
 h1, h2, h3, h4, h5, h6 {
   filter: none !important;
-  text-shadow: none !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .md-main__inner {
-  /* some Material layouts add extra wrapping; keep it sharp */
   backdrop-filter: none !important;
 }
 
-/* Typography improvements */
+/* ---------------------------
+   Typography + spacing (clean docs look)
+   --------------------------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
 p {
   line-height: 1.9;
-  color: #0f172a;
+  color: var(--text);
   opacity: 0.92;
 }
 
+/* Improve hierarchy without changing content */
 h1 {
   color: #0f172a;
   font-weight: 900;
   letter-spacing: -0.02em;
-  border-bottom: 3px solid rgba(99, 102, 241, 0.35);
+  border-bottom: 3px solid rgba(99, 102, 241, 0.30);
   padding-bottom: 10px;
 }
 
@@ -205,7 +217,7 @@ h2 {
 
 h3 {
   color: #0f172a;
-  font-weight: 780;
+  font-weight: 800;
 }
 
 li {
@@ -215,32 +227,22 @@ li {
 table {
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
-}
-
-/* Scrollbar (modern minimal) */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(34, 211, 238, 0.85), rgba(168, 85, 247, 0.85));
-  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
 }
 
 /* ---------------------------
-   HEADER (SUBTLE GLASS ONLY)
+   Subtle glass header + animated thin border
    --------------------------- */
 
 .md-header {
   background: var(--header);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  border-bottom: none;
-  transition: transform .25s ease;
+
+  transition: transform 250ms ease, box-shadow 250ms ease, background-color 250ms ease;
 }
 
-/* Thin glowing animated border */
 .md-header {
   position: relative;
 }
@@ -260,14 +262,14 @@ table {
     rgba(168, 85, 247, 0.55),
     rgba(168, 85, 247, 0.00)
   );
-  animation: headerLine 4.8s ease-in-out infinite;
+  animation: headerLine 5.2s ease-in-out infinite;
   pointer-events: none;
 }
 
 @keyframes headerLine {
-  0% { filter: brightness(0.95); opacity: 0.6; }
-  50% { filter: brightness(1.25); opacity: 0.95; }
-  100% { filter: brightness(0.95); opacity: 0.6; }
+  0% { opacity: 0.55; filter: brightness(0.95); }
+  50% { opacity: 0.95; filter: brightness(1.25); }
+  100% { opacity: 0.55; filter: brightness(0.95); }
 }
 
 .md-header .md-nav__link,
@@ -276,46 +278,40 @@ table {
   color: var(--headerText) !important;
 }
 
-/* hide/reveal while scrolling (CSS-only approximation) */
-/* Material toggles header classes; keep this safe and minimal */
-.md-header--shadow {
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
-}
-
 /* ---------------------------
-   SIDEBAR
+   Sidebar + navigation hover/active animations
    --------------------------- */
 
 .md-sidebar {
-  background: rgba(2, 6, 23, 0.72);
+  background: rgba(2, 6, 23, 0.70);
   backdrop-filter: blur(6px);
 }
 
 .md-nav__link {
-  transition: color .2s ease, transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+  transition: color 180ms ease, transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
 .md-nav__link:hover {
   color: #2563eb;
   transform: translateX(4px);
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.12);
   background: rgba(37, 99, 235, 0.06);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.12);
 }
 
 .md-nav__item--active > .md-nav__link,
 .md-nav__item--active > .md-nav__link:focus {
   background: rgba(37, 99, 235, 0.08);
-  box-shadow: inset 3px 0 0 rgba(37, 99, 235, 0.60);
+  box-shadow: inset 3px 0 0 rgba(37, 99, 235, 0.65);
   color: #0b3aa8;
 }
 
 /* ---------------------------
-   CARDS / BUTTONS / LINKS
+   Cards, buttons, admonitions: sharp + soft shadows
    --------------------------- */
 
 .md-button {
   border-radius: 10px;
-  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
 
 .md-button:hover {
@@ -323,42 +319,53 @@ table {
   box-shadow: 0 12px 26px rgba(37, 99, 235, 0.18);
 }
 
-/* Soft glow on hover for cards */
 .md-typeset .admonition,
 .md-typeset .card {
-  transition: box-shadow .2s ease, transform .2s ease;
+  border-radius: 14px;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .md-typeset .admonition:hover,
 .md-typeset .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 50px rgba(37, 99, 235, 0.12);
-}
-
-/* Prevent heavy global transitions (performance) */
-* {
-  scroll-behavior: smooth;
+  box-shadow: 0 18px 55px rgba(37, 99, 235, 0.14);
 }
 
 /* ---------------------------
-   Professional Scroll Reveal (CSS transitions)
-   Triggered by docs/javascripts/extra.js via class toggles
+   Modern minimal scrollbar
    --------------------------- */
 
-/* Base hidden state set by JS: .reveal */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.85), rgba(168, 85, 247, 0.85));
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* ---------------------------
+   Scroll reveal support (for existing IntersectionObserver)
+   Uses classes only; safe to ignore if JS not present.
+   --------------------------- */
+
 .md-content .reveal {
   opacity: 0;
   transform: translate3d(0, 14px, 0);
   transition: opacity 700ms ease, transform 700ms ease;
 }
 
-/* Visible state set by JS: .reveal-in */
 .md-content .reveal-in {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .md-content .reveal {
     opacity: 1 !important;
@@ -367,8 +374,7 @@ table {
   }
 }
 
-/* Preserve subtle hover underline reveal (not scroll flashy) */
-/* For headings: subtle underline reveal on hover */
+/* Preserve subtle underline reveal for headings */
 h1:hover,
 h2:hover,
 h3:hover {
@@ -402,10 +408,8 @@ h3:hover::after {
 }
 
 @keyframes underlinePulse {
-  0% { opacity: 0.45; filter: blur(0px); }
+  0% { opacity: 0.45; }
   50% { opacity: 0.95; }
   100% { opacity: 0.45; }
 }
-
-
 
