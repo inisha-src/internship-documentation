@@ -5,16 +5,34 @@
 
 /* Animated Background */
 body {
-    background: linear-gradient(-45deg, #0f172a, #1e3a8a, #2563eb, #0f172a);
-    background-size: 400% 400%;
-    animation: gradient 18s ease infinite;
+    /* Animated “aurora” type gradient */
+    background: radial-gradient(circle at 10% 10%, rgba(45,212,191,.35), transparent 35%),
+                radial-gradient(circle at 90% 20%, rgba(168,85,247,.35), transparent 40%),
+                radial-gradient(circle at 30% 90%, rgba(16,185,129,.25), transparent 45%),
+                linear-gradient(-45deg, #000000, #06131f, #0b1020, #120022, #000000);
+
+    background-size: 200% 200%, 220% 220%, 240% 240%, 400% 400%;
+    background-position: 0% 0%, 100% 0%, 0% 100%, 0% 50%;
+
+    /* Keep CPU impact reasonable while still “moving” */
+    animation: auroraGradient 20s ease infinite;
 }
 
-@keyframes gradient {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
+@keyframes auroraGradient {
+    0% {
+        background-position: 0% 0%, 100% 0%, 0% 100%, 0% 50%;
+        filter: saturate(1.15) brightness(0.95);
+    }
+    50% {
+        background-position: 80% 20%, 20% 0%, 10% 80%, 100% 50%;
+        filter: saturate(1.35) brightness(1.05);
+    }
+    100% {
+        background-position: 0% 0%, 100% 0%, 0% 100%, 0% 50%;
+        filter: saturate(1.15) brightness(0.95);
+    }
 }
+
 
 /* Header */
 .md-header {
