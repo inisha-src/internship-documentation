@@ -72,5 +72,26 @@
   els.forEach(function (el) {
     io.observe(el);
   });
+
+  /* -------------------------------------------------
+     Page transition animation for Material navigation
+     - Adds a short slide-in + fade when the page loads
+     - No layout/HTML changes
+     ------------------------------------------------- */
+  try {
+    var root = document.documentElement;
+    // Trigger on every navigation/load; Material next pages will reload.
+    root.setAttribute('data-page-transition', 'in');
+
+    // Remove attribute after animation ends.
+    // Duration matches CSS: 650ms
+    window.setTimeout(function () {
+      root.removeAttribute('data-page-transition');
+    }, 700);
+  } catch (e) {
+    // no-op
+  }
 })();
+
+
 
